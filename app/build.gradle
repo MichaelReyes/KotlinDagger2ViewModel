@@ -1,9 +1,12 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "tutorials.acviewmodel"
+        applicationId "technologies.acviewmodel"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -23,6 +26,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 
 def supportLibVersion = '28.0.0'
@@ -33,7 +37,7 @@ def okHttp_logger_version = '3.9.1'
 def okHttp_version = '3.10.0'
 def daggerVersion = '2.13'
 def autoValueVersion =  '1.5.1'
-def autoValueMoshieVersion = '0.4.5'
+def autoValueMoshiVersion = '0.4.5'
 
 
 dependencies {
@@ -45,6 +49,7 @@ dependencies {
 
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttp_logger_version"
     implementation "com.squareup.okhttp3:okhttp:$okHttp_version"
     implementation "com.squareup.moshi:moshi:1.5.0"
@@ -59,14 +64,21 @@ dependencies {
 
     implementation "com.google.dagger:dagger:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    compileOnly 'javax.annotation:jsr250-api:1.0'
 
     compileOnly "com.google.auto.value:auto-value:$autoValueVersion"
     annotationProcessor "com.google.auto.value:auto-value:$autoValueVersion"
+    kapt "com.google.auto.value:auto-value:$autoValueVersion"
 
-    annotationProcessor "com.ryanharter.auto.value:auto-value-moshi:$autoValueMoshieVersion"
-    compileOnly "com.ryanharter.auto.value:auto-value-moshi-annotations:$autoValueMoshieVersion"
+    annotationProcessor "com.ryanharter.auto.value:auto-value-moshi:$autoValueMoshiVersion"
+    compileOnly "com.ryanharter.auto.value:auto-value-moshi-annotations:$autoValueMoshiVersion"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
