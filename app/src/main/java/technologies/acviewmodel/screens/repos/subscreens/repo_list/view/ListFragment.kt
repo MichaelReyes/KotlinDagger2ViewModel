@@ -49,7 +49,10 @@ class ListFragment : BaseFragment<ScreenListBinding, ListViewModel>(), RepoSelec
 
     override fun onCreated(savedInstance: Bundle?) {
         initializeViews()
-        observeViewModel()
+        binding.viewModel = viewModel
+        binding.setLifecycleOwner(this)
+        //** replaced by viewModel databinding to view
+        //observeViewModel()
     }
 
     private fun initializeViews() {
@@ -87,10 +90,11 @@ class ListFragment : BaseFragment<ScreenListBinding, ListViewModel>(), RepoSelec
         viewModel.getLoading().observe(this, Observer { isLoading ->
 
             binding.loadingView.visibility = if (isLoading!!) View.VISIBLE else View.GONE
-            if (isLoading) {
+            if (isLoading!!) {
                 binding.tvError.visibility = View.GONE
                 binding.recyclerView.visibility = View.GONE
             }
+
         })
     }
 

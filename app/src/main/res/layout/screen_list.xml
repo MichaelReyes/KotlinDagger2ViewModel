@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout  xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="technologies.acviewmodel.screens.repos.viewmodel.ListViewModel"/>
+    </data>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -8,19 +17,23 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.loading ? View.GONE : viewModel.error ? View.GONE : viewModel.repos != null ? View.VISIBLE : View.GONE}"/>
 
         <TextView
             android:id="@+id/tv_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:text="Error"
+            android:visibility="@{viewModel.loading ? View.GONE : viewModel.error ? View.VISIBLE : viewModel.repos == null ? View.VISIBLE : View.GONE}"/>
 
         <ProgressBar
             android:id="@+id/loading_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:visibility="@{viewModel.loading ? View.VISIBLE : View.GONE}"/>
 
     </FrameLayout>
 </layout>

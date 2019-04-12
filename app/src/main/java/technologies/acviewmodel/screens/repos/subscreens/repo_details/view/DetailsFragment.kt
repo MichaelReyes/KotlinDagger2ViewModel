@@ -37,6 +37,7 @@ class DetailsFragment : BaseFragment<ScreenDetailsBinding, SelectedRepoViewModel
 
     override fun onCreated(savedInstance: Bundle?) {
         viewModel.restoreFromBundle(savedInstance)
+        binding.setLifecycleOwner(this)
         displayRepo()
     }
 
